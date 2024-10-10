@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETP</title>
+    <link rel="stylesheet" type="text/css" href="style_css2.css">
+</head>
+
+<body>
+ <nav class = "menu">
+ <ul>
+
+  
+    <li><a href="#">Home  </a></li>
+    <li><a href="#"> Quem somos</a></li>
+    <li><a href="#"> Help me </a></li>
+  <li class ="Login"> Login<a href="#"> </a>
+    <li class ="fazer login "> Login<a href="#"> </a>
+    </ul> 
+</nav>
+<style>.menu {
+    background-color: #333;
+    color: #fff;
+    width: 100%;
+    }
+    
+    .menu ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    }
+    
+    .menu li {
+    margin: 0 10px;
+    text-transform: uppercase;
+    }
+    
+    .menu a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    }
+    
+    .login:after,
+    .fazer-login:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background-color: #ff0;
+    transition: all 0.3s;
+    z-index: -1;
+    }
+    
+    .login:after {
+    left: -50%;
+    width: 50%;
+    }
+    
+    .login:hover:after {
+    left: 0;
+    }
+    
+    .fazer-login:after {
+    right: -50%;
+    width: 50%;
+    }
+    
+    .fazer-login:hover:after {
+    right: 0;
+    }</style>
+</body>
+
+</html>
