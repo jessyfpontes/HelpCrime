@@ -1,44 +1,40 @@
 <?php
+include_once 'banco.php';
 
-class Banco
-{
-    private static $dbNome = 'db_help';
-    private static $dbHost = 'localhost';
-    private static $dbUsuario = 'root';
-    private static $cont = null;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Capturar e sanitizar os dados do formulário
+    $name = htmlspecialchars(trim($_POST['name']));
+    $email = htmlspecialchars(trim($_POST['email']));
+    $numero = htmlspecialchars(trim($_POST['number']));
+    $subject = htmlspecialchars(trim($_POST['subject']));
+    $message = htmlspecialchars(trim($_POST['message']));
 
-    public function __construct()
-    {
-        die('A função Init não é permitida!');
+    // Validação básica
+    if (empty($name) || empty($email) || empty($number) || empty($subject) ||  empty($message)) {
+        echo "Por favor, preencha todos os campos obrigatórios.";
+        exit;
     }
 
-    public static function conectar()
-    {
-        if (null === self::$cont) {
-            try {
-                // Corrigido o erro na string de conexão: faltava o ponto e vírgula (;) entre "host" e "dbname"
-                self::$cont = new PDO("mysql:host=" . self::$dbHost . ";dbname=" . self::$dbNome, self::$dbUsuario);
-                self::$cont->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch (PDOException $exception) {
-                die('Erro de conexão: ' . $exception->getMessage());
-            }
-        }
-        return self::$cont;
-    }
+    // Configurações do e-mail
+    $to = "seuemail@exemplo.com"; // Altere para seu e-mail
+    $headers = "From: $name <$email>\r\n";
+    $headers .= "Reply-To: $email\r\n";
+    $headers .= "Content-Type: text/plain; charset=utf-8\r\n";
 
-    public static function desconectar()
-    {
-        self::$cont = null;
-    }
-}
+    // Mensagem
+    $emailMessage = "Nome: $name\n";
+    $emailMessage .= "Email: $email\n";
+    $emailMessage .= "Telefone: $number\n";
+    $emailMessage .= "Assunto: $subject\n";
+    $emailMessage .= "Mensagem: $message\n";
 
-// Exemplo de uso
-try {
-    $conexao = Banco::conectar();
-    // Aqui você pode realizar suas operações no banco de dados
-} catch (Exception $e) {
-    echo 'Erro: ' . $e->getMessage();
-} finally {
-    Banco::desconectar();
+    // Enviar e-mail
+    if (mail($to, $subject, $emailMessage, $headers)) {
+        echo "Mensagem enviada com sucesso!";
+    } else {
+        echo "Erro ao enviar a mensagem. Tente novamente mais tarde.";
+    }
+} else {
+    echo "Método de requisição inválido.";
 }
 ?>
