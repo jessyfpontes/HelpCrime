@@ -5,6 +5,7 @@ USE db_help;
 DROP TABLE IF EXISTS sprint;
 
 CREATE TABLE sprint (
+id primary key;
   nome VARCHAR(50) COLLATE utf8_unicode_ci NOT NULL,
   email VARCHAR(50) COLLATE utf8_unicode_ci NOT NULL,
   numero VARCHAR(50) COLLATE utf8_unicode_ci NOT NULL,
